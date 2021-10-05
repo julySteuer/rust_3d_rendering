@@ -8,7 +8,7 @@ pub struct World {
     width:usize,
     height:usize,
     pub world:Vec<Box<Funnel>>,
-    background:Box<[u8]>
+    background:Box<[u8]>,
 }
 
 impl World {
@@ -27,8 +27,8 @@ impl World {
         let val = std::mem::replace(&mut self.world[index], object);
         val
     }
+
     pub fn update(&mut self, frame:&mut [u8]){
-        let mut updated = HashMap::new();
         for (i, pixel) in frame.chunks_exact_mut(4).enumerate() {
             let x = i % self.width;
             let y = i / self.height;
@@ -38,13 +38,15 @@ impl World {
                 if drawer != None {
                     rgba = drawer.unwrap();
                     pixel.copy_from_slice(&rgba);
-                    updated.insert(i, true);
-                }
-                else if updated.contains_key(&i) == false { 
-                    pixel.copy_from_slice(&self.background.clone());
                 }
             }
         }
         self.world.clear();
+    }
+
+    pub fn clear(&self,frame: &mut [u8]) {
+        for (i, pixel) in frame.chunks_exact_mut(4).enumerate() {
+            pixel.copy_from_slice(&[0,0,0,0]);
+        }
     }
 }
