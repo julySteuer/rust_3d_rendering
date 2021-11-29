@@ -9,7 +9,7 @@ use pixels::{Error, Pixels, SurfaceTexture};
 use winit::dpi::LogicalSize;
 use std::f64::consts::PI;
 use std::time::{Duration, Instant};
-use models::{Rectangle::Rect, World::World, Circle::Circle, Polygon::Polygon, Vector::Vec2d, Line::Line};
+use models::{Rectangle::Rect, World::World, Circle::Circle, Polygon::Polygon, Vector::Vec2d, Line::Line, Mats::Mats};
 
 fn main() {//use vector
     let WIDTH:u32 = 600;
@@ -28,12 +28,7 @@ fn main() {//use vector
     arr1(&[1.0,1.0,1.0,1.0]),
     arr1(&[-1.0,1.0,1.0,1.0])
     ];
-    let projection_matrix = ndarray::arr2(&[
-    [ar as f64*fov as f64, 0.0, 0.0, 0.0], 
-    [0.0, fov as f64, 0.0, 0.0], 
-    [0.0,0.0,q,1.0], 
-    [0.0,0.0,(-far * near)/(far - near),0.0],
-    ]);
+    let projection_matrix = Mats::projection_matrix(ar, fov as f64, far,near, q);
     //let mut points:std::vec::Vec<ndarray::ArrayBase<ndarray::OwnedRepr<f64>, ndarray::Dim<[usize; 1]>>> = vec![arr1(&[0.0,100.0,100.0]),
     //arr1(&[100.0,100.0,100.0]),
     //arr1(&[100.0,0.0,100.0]),
@@ -61,7 +56,7 @@ fn main() {//use vector
         let now = Instant::now();
         //fov += 0.1;
         let angle = a * (PI/180.0);
-        let rotate_x = ndarray::arr2(&[[1.0,0.0,0.0], [0.0, angle.cos(), -angle.sin()], [0.0, angle.sin(), angle.cos()]]);
+        //let rotate_x = ndarray::arr2(&[[1.0,0.0,0.0], [0.0, angle.cos(), -angle.sin()], [0.0, angle.sin(), angle.cos()]]);
         //let cube_pos = arr1(&[0.0, 0.0, -20.0]);
         *control_flow = ControlFlow::Poll;
         if let Event::RedrawRequested(_) = event {
@@ -76,7 +71,7 @@ fn main() {//use vector
                 //println!("{}, {}, {}", points[i][0],points[i][1], points[i][2]);
                 //println!("x: {}, y:{}, z:{}", x,y, z_t);//MAKE SOMETHING BIGGER
                 //if z_t < 0.0 {
-                    world.add(Box::new(Circle::new(Vec2d{x:(x_t + 300.0) as isize, y:((y_t+ 300.0)) as isize}, 5.0, Box::new(rgba)))); //translate center
+                    world.add(Box::new(Circle::new(Vec2d{x:(x_t + 300.0) as f32, y:((y_t+ 300.0)) as f32}, 5.0, Box::new(rgba)))); //translate center
                 //} 
             } 
             //println!("-------------");
@@ -103,13 +98,13 @@ fn main() {//use vector
                         curr_pos[2] -= 0.5
                     },
                     winit::event::VirtualKeyCode::A => {
-                        curr_pos[0] -= 0.5
-                    }
-                    winit::event::VirtualKeyCode::D => {
                         curr_pos[0] += 0.5
                     }
+                    winit::event::VirtualKeyCode::D => {
+                        curr_pos[0] -= 0.5
+                    }
                     winit::event::VirtualKeyCode::C => { // rotate by the inverse
-                        let rotate_y = ndarray::arr2(&[[angle.cos(), 0.0 , angle.sin()], [0.0,1.0,0.0], [-angle.sin(), 0.0, angle.cos()]]);
+                        let rotate_y = Mats::rotate_x(angle);
                         //a += 0.1;
                         for i in 0..points.len() {
                             points[i] = rotate_y.dot(&arr1(&[points[i][0], points[i][1], points[i][2]]));//rotate then move by aprox z_0
@@ -117,8 +112,7 @@ fn main() {//use vector
                         }
                     },
                     winit::event::VirtualKeyCode::X => {
-                        let turning_angle = -angle;
-                        let rotate_y = ndarray::arr2(&[[-turning_angle.cos(), 0.0 , -turning_angle.sin()], [0.0,1.0,0.0], [turning_angle.sin(), 0.0, -turning_angle.cos()]]);
+                        let rotate_y = Mats::rotate_x(-angle);
                         for i in 0..points.len() {
                             points[i] = rotate_y.dot(&arr1(&[points[i][0], points[i][1], points[i][2]]));//rotate then move by aprox z_0
                             points[i] = arr1(&[points[i][0], points[i][1], points[i][2], 1.0]);

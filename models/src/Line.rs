@@ -14,11 +14,11 @@ impl Line {
 
 impl Funnel for Line {
     fn draw(&self, x: usize, y: usize) -> Option<Box<[u8]>> {
-            let line_dist = ((self.points.get(0).unwrap().x - self.points.get(1).unwrap().x).pow(2) + (self.points.get(0).unwrap().y - self.points.get(1).unwrap().y).pow(2))as f32;
+            let line_dist = ((self.points.get(0).unwrap().x as isize - self.points.get(1).unwrap().x as isize).pow(2) + (self.points.get(0).unwrap().y as isize - self.points.get(1).unwrap().y as isize).pow(2))as f32;
             let dist = line_dist.sqrt();
-            let proc_dist_1 = ((self.points.get(1).unwrap().x - x as isize).pow(2) + (self.points.get(1).unwrap().y - y as isize).pow(2))as f32;
+            let proc_dist_1 = ((self.points.get(1).unwrap().x as isize - x as isize).pow(2) + (self.points.get(1).unwrap().y as isize - y as isize).pow(2))as f32;
             let dist_1 = proc_dist_1.sqrt();
-            let proc_dist_2 = ((self.points.get(0).unwrap().x - x as isize).pow(2) + (self.points.get(0).unwrap().y - y as isize).pow(2))as f32;
+            let proc_dist_2 = ((self.points.get(0).unwrap().x as isize - x as isize).pow(2) + (self.points.get(0).unwrap().y as isize - y as isize).pow(2))as f32;
             let dist_2 = proc_dist_2.sqrt();
             if dist_1 + dist_2 == dist {
                 Some(self.color.clone())
