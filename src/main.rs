@@ -9,8 +9,8 @@ use pixels::{Error, Pixels, SurfaceTexture};
 use winit::dpi::LogicalSize;
 use std::f64::consts::PI;
 use std::time::{Duration, Instant};
-use models::{Rectangle::Rect, World::World, Circle::Circle, Polygon::Polygon, Vector::Vec2d, Line::Line, Mats::Mats};
-
+use models::{Rectangle::Rect, World::World, Circle::Circle, Polygon::Polygon, Vector::Vec2d,Vector::Vec3d, Line::Line, Mats::Mats, dim3::Camera, dim3::Cube, dim3::Shape3d};
+//trait has to be in scpoe 
 fn main() {//use vector
     let WIDTH:u32 = 600;
     let HEIGHT:u32 = 600;
@@ -29,16 +29,6 @@ fn main() {//use vector
     arr1(&[-1.0,1.0,1.0,1.0])
     ];
     let projection_matrix = Mats::projection_matrix(ar, fov as f64, far,near, q);
-    //let mut points:std::vec::Vec<ndarray::ArrayBase<ndarray::OwnedRepr<f64>, ndarray::Dim<[usize; 1]>>> = vec![arr1(&[0.0,100.0,100.0]),
-    //arr1(&[100.0,100.0,100.0]),
-    //arr1(&[100.0,0.0,100.0]),
-    //arr1(&[0.0,0.0,100.0]),
-    //arr1(&[0.0,100.0,200.0]),
-    //arr1(&[100.0,100.0,200.0]),
-   // arr1(&[100.0,0.0,200.0]),
-    //arr1(&[0.0,0.0,200.0])
-    //];//does maybe work
-    //more testing
     let mut a = 10.0;
     let size = LogicalSize::new(WIDTH, HEIGHT);
     let event_loop = EventLoop::new();
@@ -51,8 +41,11 @@ fn main() {//use vector
     };
     let rgba = [0,0xff,0,0xff];
     let mut camera_pos = arr1(&[0.0,0.0,0.0]);
+    let cam = Camera::Camera::new(Vec3d{x:0.0, y:0.0, z:0.0}, ar, fov as f64, far, near,q);
     //let z_0 = ((WIDTH/2) as f32/((fov/2.0) * PI / 180.0).tan() as f32) as f32; //make here bigger the hardcoded value i guess
-    event_loop.run(move |event, _, control_flow| {
+    let mut cube = Cube::Cube::new(Vec3d{x:2.0, y:2.0, z:2.0}, &mut world);
+    cube.render(&cam);//inifinie render and big ass stack 
+    event_loop.run(move |event, _, control_flow| {//now it will only be rendered for 1 frame
         let now = Instant::now();
         //fov += 0.1;
         let angle = a * (PI/180.0);
@@ -65,20 +58,13 @@ fn main() {//use vector
                 let x_t = coords[0] / coords[3];
                 let y_t = coords[1] / coords[3];
                 let z_t = coords[2] / coords[3];
-                //let x = ((coords[0] * WIDTH as f32) / (2.0 * WIDTH as f32) + WIDTH as f32 * 0.5)/coords[2];
-                //let y = ((coords[1] * HEIGHT as f32) / (2.0 * HEIGHT as f32) + HEIGHT as f32 * 0.5)/coords[2];
-                //let new_vert = matrix.dot(&arr1(&[x as isize,y as isize,points[i][2] as isize]));
-                //println!("{}, {}, {}", points[i][0],points[i][1], points[i][2]);
-                //println!("x: {}, y:{}, z:{}", x,y, z_t);//MAKE SOMETHING BIGGER
-                //if z_t < 0.0 {
-                    world.add(Box::new(Circle::new(Vec2d{x:(x_t + 300.0) as f32, y:((y_t+ 300.0)) as f32}, 5.0, Box::new(rgba)))); //translate center
-                //} 
+                    //world.add(Box::new(Circle::new(Vec2d{x:(x_t + 300.0), y:((y_t+ 300.0))}, 5.0, Box::new(rgba)))); //translate center
             } 
             //println!("-------------");
-            world.clear(pixels.get_frame());
+            //world.clear(pixels.get_frame());
             world.update(pixels.get_frame());
             pixels.render().unwrap();
-            println!("{}", 1000/now.elapsed().as_millis());
+            //println!("{}", 1000/now.elapsed().as_millis());
         }
         match event {
             Event::WindowEvent {

@@ -5,10 +5,10 @@ use crate::Vector::Vec2d;
 pub struct Polygon { 
     pub vectors: Vec<Vec2d>,
     pub color:Box<[u8]>,
-    min_x: f32,
-    min_y:f32,
-    max_x:f32,
-    max_y:f32,
+    min_x: f64,
+    min_y:f64,
+    max_x:f64,
+    max_y:f64,
     height: usize
 }
 
@@ -76,9 +76,9 @@ impl Funnel for Polygon {
             let mut intersections:i8 = 0;
             let proc_x = x as isize;
             let proc_y = y as isize;
-            let inp_to_vec = Vec2d{x:proc_x as f32, y:proc_y as f32};
+            let inp_to_vec = Vec2d{x:proc_x as f64, y:proc_y as f64};
             for (i, value) in self.vectors.iter().enumerate() {
-                let intersects = Polygon::intersect(&inp_to_vec, &Vec2d{x:proc_x as f32, y:self.height as f32}, value, self.vectors.get((i+1)%self.vectors.len()).clone().unwrap());//hardcoded change here with code check if intersect lises behind or in front of point
+                let intersects = Polygon::intersect(&inp_to_vec, &Vec2d{x:proc_x as f64, y:self.height as f64}, value, self.vectors.get((i+1)%self.vectors.len()).clone().unwrap());//hardcoded change here with code check if intersect lises behind or in front of point
                 if intersects.0 < self.max_x as f32 && intersects.0 > self.min_x as f32 && intersects.1 > self.min_y as f32 && intersects.1 < self.max_y as f32 && intersects.1 < y as f32 {
                     intersections += 1;
                 }
