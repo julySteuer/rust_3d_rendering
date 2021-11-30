@@ -42,11 +42,11 @@ fn main() {//use vector
     let rgba = [0,0xff,0,0xff];
     let mut camera_pos = arr1(&[0.0,0.0,0.0]);
     let cam = Camera::Camera::new(Vec3d{x:0.0, y:0.0, z:0.0}, ar, fov as f64, far, near,q);
-    //let z_0 = ((WIDTH/2) as f32/((fov/2.0) * PI / 180.0).tan() as f32) as f32; //make here bigger the hardcoded value i guess
-    let mut cube = Cube::Cube::new(Vec3d{x:2.0, y:2.0, z:2.0}, &mut world);
-    cube.render(&cam);//inifinie render and big ass stack 
+    //let z_0 = ((WIDTH/2) as f32/((fov/2.0) * PI / 180.0).tan() as f32) as f32; //make here bigger the hardcoded value i guess 
     event_loop.run(move |event, _, control_flow| {//now it will only be rendered for 1 frame
         let now = Instant::now();
+        let mut cube = Cube::Cube::new(Vec3d{x:0.0, y:0.0, z:2.0}, &mut world);
+        cube.render(&cam);
         //fov += 0.1;
         let angle = a * (PI/180.0);
         //let rotate_x = ndarray::arr2(&[[1.0,0.0,0.0], [0.0, angle.cos(), -angle.sin()], [0.0, angle.sin(), angle.cos()]]);
@@ -58,13 +58,13 @@ fn main() {//use vector
                 let x_t = coords[0] / coords[3];
                 let y_t = coords[1] / coords[3];
                 let z_t = coords[2] / coords[3];
-                    //world.add(Box::new(Circle::new(Vec2d{x:(x_t + 300.0), y:((y_t+ 300.0))}, 5.0, Box::new(rgba)))); //translate center
+                //world.add(Box::new(Circle::new(Vec2d{x:(x_t + 300.0), y:((y_t+ 300.0))}, 5.0, Box::new(rgba)))); //translate center
             } 
             //println!("-------------");
             //world.clear(pixels.get_frame());
             world.update(pixels.get_frame());
             pixels.render().unwrap();
-            //println!("{}", 1000/now.elapsed().as_millis());
+            println!("{}", 1000/now.elapsed().as_millis());
         }
         match event {
             Event::WindowEvent {

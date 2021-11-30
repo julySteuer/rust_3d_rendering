@@ -47,8 +47,8 @@ impl Shape3d for Cube<'_> {
         
         for i in 0..self.points.len() {
             let coords = camera.render_from_perspective(&Vector::Vec3d::ndarr_2_vec(&new_point[i]));
-            println!("x: {}, y: {}", coords.x+300.0, coords.y+300.0);
-            self.world.add(Box::new(Circle::Circle::new(Vector::Vec2d{x:(coords.x + 300.0), y:(coords.y+ 300.0)}, 5.0, Box::new([0,0xff,0,0xff])))) // make bigger coords between -1 and 1 add 300
+            self.world.add(Box::new(Circle::Circle::new(Vector::Vec2d{x:(coords.x + 300.0), y:(coords.y+ 300.0)}, 5.0, Box::new([0,0xff,0,0xff])))); // make bigger coords between -1 and 1 add 300
+            println!("p: {}",self.world.world.len());
         }
     }
 }

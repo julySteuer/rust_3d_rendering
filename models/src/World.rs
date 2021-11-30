@@ -42,6 +42,7 @@ impl World {
             }
         }
         self.world.clear();
+        println!("pHere:{}", self.world.len());
     }
 
     pub fn clear(&self,frame: &mut [u8]) {
