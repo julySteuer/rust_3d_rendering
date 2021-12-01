@@ -41,27 +41,23 @@ fn main() {//use vector
     };
     let rgba = [0,0xff,0,0xff];
     let mut camera_pos = arr1(&[0.0,0.0,0.0]);
+    let mut cube_pos = Vec3d{x:0.0,y:0.0,z:0.0};
+    let mut cube_rotation = Vec3d{x:0.0,y:0.0,z:0.0};
     let cam = Camera::Camera::new(Vec3d{x:0.0, y:0.0, z:0.0}, ar, fov as f64, far, near,q);
     //let z_0 = ((WIDTH/2) as f32/((fov/2.0) * PI / 180.0).tan() as f32) as f32; //make here bigger the hardcoded value i guess 
     event_loop.run(move |event, _, control_flow| {//now it will only be rendered for 1 frame
         let now = Instant::now();
-        let mut cube = Cube::Cube::new(Vec3d{x:0.0, y:0.0, z:2.0}, &mut world);
-        cube.render(&cam);
         //fov += 0.1;
         let angle = a * (PI/180.0);
         //let rotate_x = ndarray::arr2(&[[1.0,0.0,0.0], [0.0, angle.cos(), -angle.sin()], [0.0, angle.sin(), angle.cos()]]);
         //let cube_pos = arr1(&[0.0, 0.0, -20.0]);
         *control_flow = ControlFlow::Poll;
         if let Event::RedrawRequested(_) = event {
-            for (i, vec) in points.iter().enumerate(){ 
-                let coords = projection_matrix.dot(&points[i]);
-                let x_t = coords[0] / coords[3];
-                let y_t = coords[1] / coords[3];
-                let z_t = coords[2] / coords[3];
-                //world.add(Box::new(Circle::new(Vec2d{x:(x_t + 300.0), y:((y_t+ 300.0))}, 5.0, Box::new(rgba)))); //translate center
-            } 
-            //println!("-------------");
-            //world.clear(pixels.get_frame());
+            let mut cube = Cube::Cube::new(cube_pos,&mut world,Vec3d{x:0.0,y:0.0, z:0.0});
+            //cube.rotate(cube_rotation);
+            cube.render(&cam);
+            cube_rotation.x = cube_rotation.x + 1.0;
+            world.clear(pixels.get_frame());
             world.update(pixels.get_frame());
             pixels.render().unwrap();
             println!("{}", 1000/now.elapsed().as_millis());
@@ -78,7 +74,8 @@ fn main() {//use vector
                 let mut curr_pos = arr1(&[0.0,0.0,0.0]);
                 match input.virtual_keycode.unwrap() {
                     winit::event::VirtualKeyCode::W => {
-                        curr_pos[2] += 0.5
+                        curr_pos[2] += 0.5;
+                        cube_pos.z += 0.5
                     },
                     winit::event::VirtualKeyCode::S => {
                         curr_pos[2] -= 0.5

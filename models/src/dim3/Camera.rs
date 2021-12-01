@@ -12,9 +12,9 @@ pub struct Camera {
 }
 
 impl Camera {
-    pub fn render_from_perspective(&self, point: &Vector::Vec3d) -> Vector::Vec2d{
-        //let point = Vector::Vec3d::vec_2_wndarr(point) - Vector::Vec3d::vec_2_wndarr(&self.camera_pos);  
-        let coords = Mats::Mats::projection_matrix(self.aspect_ratio, self.fov,self.far,self.near,self.q).dot(&Vector::Vec3d::vec_2_wndarr(point));
+    pub fn render_from_perspective(&self, point: &Vector::Vec3d) -> Vector::Vec2d{//TODO:Add camera position
+        let point = Vector::Vec3d::vec_2_wndarr(&self.camera_pos) - Vector::Vec3d::vec_2_wndarr(point);  
+        let coords = Mats::Mats::projection_matrix(self.aspect_ratio, self.fov,self.far,self.near,self.q).dot(&point);
         Vector::Vec2d{
             x: coords[0]/coords[3],
             y: coords[1]/coords[3]
