@@ -1,0 +1,9 @@
+[book]
+authors = ["ToastBreadMan"]
+language = "en"
+multilingual = false
+src = "src"
+title = "doc"
+
+[build]
+build-dir = "../docs"
