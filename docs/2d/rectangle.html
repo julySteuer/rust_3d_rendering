@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Shape 3d - doc</title>
+        <title>Rectangle - doc</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li><li class="chapter-item expanded "><a href="../2d/intro_2d.html"><strong aria-hidden="true">2.</strong> 2d</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../2d/shape2d.html"><strong aria-hidden="true">2.1.</strong> Shape 2d</a></li><li class="chapter-item expanded "><a href="../2d/line.html"><strong aria-hidden="true">2.2.</strong> Line</a></li><li class="chapter-item expanded "><a href="../2d/mats.html"><strong aria-hidden="true">2.3.</strong> Mats</a></li><li class="chapter-item expanded "><a href="../2d/polygon.html"><strong aria-hidden="true">2.4.</strong> Polygon</a></li><li class="chapter-item expanded "><a href="../2d/rectangle.html"><strong aria-hidden="true">2.5.</strong> Rectangle</a></li><li class="chapter-item expanded "><a href="../2d/vector.html"><strong aria-hidden="true">2.6.</strong> Vector</a></li></ol></li><li class="chapter-item expanded "><a href="../3d/intro_3d.html"><strong aria-hidden="true">3.</strong> 3d</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../3d/shape3d.html" class="active"><strong aria-hidden="true">3.1.</strong> Shape 3d</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li><li class="chapter-item expanded "><a href="../2d/intro_2d.html"><strong aria-hidden="true">2.</strong> 2d</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../2d/shape2d.html"><strong aria-hidden="true">2.1.</strong> Shape 2d</a></li><li class="chapter-item expanded "><a href="../2d/line.html"><strong aria-hidden="true">2.2.</strong> Line</a></li><li class="chapter-item expanded "><a href="../2d/mats.html"><strong aria-hidden="true">2.3.</strong> Mats</a></li><li class="chapter-item expanded "><a href="../2d/polygon.html"><strong aria-hidden="true">2.4.</strong> Polygon</a></li><li class="chapter-item expanded "><a href="../2d/rectangle.html" class="active"><strong aria-hidden="true">2.5.</strong> Rectangle</a></li><li class="chapter-item expanded "><a href="../2d/vector.html"><strong aria-hidden="true">2.6.</strong> Vector</a></li></ol></li><li class="chapter-item expanded "><a href="../3d/intro_3d.html"><strong aria-hidden="true">3.</strong> 3d</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../3d/shape3d.html"><strong aria-hidden="true">3.1.</strong> Shape 3d</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,26 +134,40 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="shape-3d"><a class="header" href="#shape-3d">Shape 3d</a></h1>
+                        <h1 id="rectangle"><a class="header" href="#rectangle">Rectangle</a></h1>
 <hr />
-<h2 id="trait"><a class="header" href="#trait">Trait</a></h2>
+<h2 id="struct"><a class="header" href="#struct">Struct</a></h2>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>pub trait Shape3d {
-    fn draw(&amp;self, world:World::World);
+</span>pub struct Rect {
+    p1:Vec2d,
+    p2:Vec2d,
+    color: Box&lt;[u8]&gt;
 }
 <span class="boring">}
 </span></code></pre></pre>
+<hr />
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn new(p1:Vec2d, p2:Vec2d, color:Box&lt;[u8]&gt;)-&gt;Rect
+<span class="boring">}
+</span></code></pre></pre>
+<p>new: creates a new Rect</p>
 <h2 id="explanation"><a class="header" href="#explanation">Explanation</a></h2>
-<p>This trait is used do render all 3d shapes. Every 3d shape that has to be rendered need to implement this trait in order for it to work with the rendering pipeline</p>
+<p>Draws a rectangle to at the given points</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../3d/intro_3d.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../2d/polygon.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../2d/vector.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
                     </nav>
@@ -161,8 +175,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../3d/intro_3d.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../2d/polygon.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../2d/vector.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
