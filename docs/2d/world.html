@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Polygon - doc</title>
+        <title>World - doc</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li><li class="chapter-item expanded "><a href="../2d/intro_2d.html"><strong aria-hidden="true">2.</strong> 2d</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../2d/shape2d.html"><strong aria-hidden="true">2.1.</strong> Shape 2d</a></li><li class="chapter-item expanded "><a href="../2d/line.html"><strong aria-hidden="true">2.2.</strong> Line</a></li><li class="chapter-item expanded "><a href="../2d/mats.html"><strong aria-hidden="true">2.3.</strong> Mats</a></li><li class="chapter-item expanded "><a href="../2d/polygon.html" class="active"><strong aria-hidden="true">2.4.</strong> Polygon</a></li><li class="chapter-item expanded "><a href="../2d/rectangle.html"><strong aria-hidden="true">2.5.</strong> Rectangle</a></li><li class="chapter-item expanded "><a href="../2d/vector.html"><strong aria-hidden="true">2.6.</strong> Vector</a></li><li class="chapter-item expanded "><a href="../2d/world.html"><strong aria-hidden="true">2.7.</strong> World</a></li></ol></li><li class="chapter-item expanded "><a href="../3d/intro_3d.html"><strong aria-hidden="true">3.</strong> 3d</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../3d/shape3d.html"><strong aria-hidden="true">3.1.</strong> Shape 3d</a></li><li class="chapter-item expanded "><a href="../3d/camera.html"><strong aria-hidden="true">3.2.</strong> Camera</a></li><li class="chapter-item expanded "><a href="../3d/cube.html"><strong aria-hidden="true">3.3.</strong> Cube</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/example_intro.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/example_file.html"><strong aria-hidden="true">4.1.</strong> First App</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li><li class="chapter-item expanded "><a href="../2d/intro_2d.html"><strong aria-hidden="true">2.</strong> 2d</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../2d/shape2d.html"><strong aria-hidden="true">2.1.</strong> Shape 2d</a></li><li class="chapter-item expanded "><a href="../2d/line.html"><strong aria-hidden="true">2.2.</strong> Line</a></li><li class="chapter-item expanded "><a href="../2d/mats.html"><strong aria-hidden="true">2.3.</strong> Mats</a></li><li class="chapter-item expanded "><a href="../2d/polygon.html"><strong aria-hidden="true">2.4.</strong> Polygon</a></li><li class="chapter-item expanded "><a href="../2d/rectangle.html"><strong aria-hidden="true">2.5.</strong> Rectangle</a></li><li class="chapter-item expanded "><a href="../2d/vector.html"><strong aria-hidden="true">2.6.</strong> Vector</a></li><li class="chapter-item expanded "><a href="../2d/world.html" class="active"><strong aria-hidden="true">2.7.</strong> World</a></li></ol></li><li class="chapter-item expanded "><a href="../3d/intro_3d.html"><strong aria-hidden="true">3.</strong> 3d</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../3d/shape3d.html"><strong aria-hidden="true">3.1.</strong> Shape 3d</a></li><li class="chapter-item expanded "><a href="../3d/camera.html"><strong aria-hidden="true">3.2.</strong> Camera</a></li><li class="chapter-item expanded "><a href="../3d/cube.html"><strong aria-hidden="true">3.3.</strong> Cube</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/example_intro.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/example_file.html"><strong aria-hidden="true">4.1.</strong> First App</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,20 +134,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="polygon"><a class="header" href="#polygon">Polygon</a></h1>
+                        <h1 id="world"><a class="header" href="#world">World</a></h1>
 <hr />
 <h2 id="struct"><a class="header" href="#struct">Struct</a></h2>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>pub struct Polygon { 
-    pub vectors: Vec&lt;Vec2d&gt;,
-    pub color:Box&lt;[u8]&gt;,
-    min_x: f64,
-    min_y:f64,
-    max_x:f64,
-    max_y:f64,
-    height: usize
+</span>pub struct World {
+    width:usize,
+    height:usize,
+    pub world:Vec&lt;Box&lt;Funnel&gt;&gt;,
+    background:Box&lt;[u8]&gt;,
 }
 <span class="boring">}
 </span></code></pre></pre>
@@ -156,27 +153,33 @@
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>fn new(vectors:Vec&lt;Vec2d&gt;,color:Box&lt;[u8]&gt;, height:usize)-&gt;Polygon
+</span>fn new(width:&amp;u32, height:&amp;u32, background:Box&lt;[u8]&gt;)-&gt;World
 
-fn get_min_max(&amp;self, vectors:Vec&lt;Vec2d&gt;)
+fn add(&amp;mut self, object:Box&lt;Funnel&gt;)
 
-fn intersect(p0:&amp;Vec2d, p1:&amp;Vec2d, p2:&amp;Vec2d, p3:&amp;Vec2d)-&gt;(f32,f32)
+fn change(&amp;mut self, index: usize, object:Box&lt;Funnel&gt;)-&gt;Box&lt;Funnel&gt;
+
+fn update(&amp;mut self, frame:&amp;mut [u8])
+
+fn clear(&amp;self,frame: &amp;mut [u8]) {
 <span class="boring">}
 </span></code></pre></pre>
-<p>new: generates a new Polygon with the given parameters</br>
-get_min_max: calculates the minx miny maxx and maxy values. Important for drawing</br>
-intersect: checks for interections</p>
+<p>new: Generates a new World</br>
+add: adds a element to the world</br>
+change: changes element of index in world</br>
+update: updates the screen</br>
+clear: clears the frame</p>
 <h2 id="explanation"><a class="header" href="#explanation">Explanation</a></h2>
-<p>Draws a n-Edged polygon to the screen</p>
+<p>The world is the heard of the programm. With add you can add a shape to the screen .this shape have to implement the shape 2d trait. update renders directly to the screen so you have to call update to render the things you added to the screen  </p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../2d/mats.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../2d/vector.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../2d/rectangle.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../3d/intro_3d.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -185,10 +188,10 @@ intersect: checks for interections</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../2d/mats.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../2d/vector.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../2d/rectangle.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../3d/intro_3d.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

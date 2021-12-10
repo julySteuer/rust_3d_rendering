@@ -1,7 +1,7 @@
 # 3D Rendering Framework
 ## What is this Framework
 ---
-This Framework is a attempt of building a 3d framework on top of my already existing 2d engine. It can be used to display basic shapes or make your own, more complex, out of this shapes.
+This Framework is a attempt of building a 3d framework on top of my already existing 2d engine. It can be used to display basic shapes or make your own, more complex, out of this given basic shapes.
 
 ## Technical Details 
 ---
@@ -46,14 +46,15 @@ Use this comand to run the main programm with the release optimisation, which is
 ## Usage/Getting Started
 ---
 ### 1. Download it
-````shell
-git clone https://github.com/ToastBreadMan/rust_3d_rendering.git
+Donwload the latest release on the right hand side of this github page if there is no version avilable just git clone this repo
+````sh
+git clone https://github.com/ToastBreadMan/rust_3d_rendering
 ````
 ### 2. Run it
 ```shell
 cd rust_3d_rendering
 cargo run --release 
-```` 
+```
 
 ### 3. Understand it
 The documentation is at https://toastbreadman.github.io/rust_3d_rendering/ 

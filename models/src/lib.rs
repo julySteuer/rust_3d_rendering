@@ -12,6 +12,5 @@ pub mod Circle;
 pub mod Polygon;
 pub mod Vector;
 pub mod Line;
-pub mod Rotation;
 pub mod Mats;
 pub mod dim3;

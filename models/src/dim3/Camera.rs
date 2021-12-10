@@ -8,7 +8,6 @@ pub struct Camera {
     far:f64,
     near:f64,
     q:f64
-
 }
 
 impl Camera {
