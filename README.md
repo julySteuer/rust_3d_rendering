@@ -57,4 +57,4 @@ cargo run --release
 ```
 
 ### 3. Understand it
-The documentation is at https://toastbreadman.github.io/rust_3d_rendering/ 
+The documentation is at https://julysteuer.github.io/rust_3d_rendering/
