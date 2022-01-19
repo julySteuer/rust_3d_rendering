@@ -1,7 +1,17 @@
-# First App
----
-````rust
-fn main() {//use vector
+use winit::{
+    event::{Event, WindowEvent},
+    event_loop::{ControlFlow, EventLoop},
+    window::WindowBuilder,
+};
+use ndarray;
+use ndarray::arr1;
+use pixels::{Error, Pixels, SurfaceTexture};
+use winit::dpi::LogicalSize;
+use std::f64::consts::PI;
+use std::time::{Duration, Instant};
+use models::{Rectangle::Rect, World::World, Circle::Circle, Polygon::Polygon, Vector::Vec2d,Vector::Vec3d, Line::Line, Mats::Mats, dim3::Camera, dim3::Cube, dim3::Shape3d};
+
+pub fn run(){
     let WIDTH:u32 = 600;
     let HEIGHT:u32 = 600;
     let size = LogicalSize::new(WIDTH, HEIGHT);
@@ -31,5 +41,4 @@ fn main() {//use vector
         }
         window.request_redraw();
     });
-} 
-````
+}

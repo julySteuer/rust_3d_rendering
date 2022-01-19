@@ -1,6 +1,6 @@
 # Summary
 
-- [Chapter 1](./chapter_1.md)
+- [Documentation](./chapter_1.md)
 - [2d](2d/intro_2d.md)
     - [Shape 2d](2d/shape2d.md)
     - [Line](2d/line.md)

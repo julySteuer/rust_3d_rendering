@@ -10,7 +10,9 @@ use winit::dpi::LogicalSize;
 use std::f64::consts::PI;
 use std::time::{Duration, Instant};
 use models::{Rectangle::Rect, World::World, Circle::Circle, Polygon::Polygon, Vector::Vec2d,Vector::Vec3d, Line::Line, Mats::Mats, dim3::Camera, dim3::Cube, dim3::Shape3d};
+mod flappy_bird;
 //trait has to be in scpoe 
+/*
 fn main() {//use vector
     let WIDTH:u32 = 600;
     let HEIGHT:u32 = 600;
@@ -115,3 +117,7 @@ fn main() {//use vector
         window.request_redraw();
     });
 } 
+*/
+fn main(){
+    flappy_bird::run();
+}
