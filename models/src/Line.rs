@@ -1,4 +1,4 @@
-use crate::World::Funnel;
+use crate::World::Shape2d;
 use crate::Vector::Vec2d;
 
 pub struct Line {
@@ -12,8 +12,9 @@ impl Line {
     }
 }
 
-impl Funnel for Line {
-    fn draw(&self, x: usize, y: usize) -> Option<Box<[u8]>> {
+impl Shape2d for Line {
+    fn draw(&mut self, frame: &mut Vec<u32>) {
+        /*
             let line_dist = ((self.points.get(0).unwrap().x as isize - self.points.get(1).unwrap().x as isize).pow(2) + (self.points.get(0).unwrap().y as isize - self.points.get(1).unwrap().y as isize).pow(2))as f32;
             let dist = line_dist.sqrt();
             let proc_dist_1 = ((self.points.get(1).unwrap().x as isize - x as isize).pow(2) + (self.points.get(1).unwrap().y as isize - y as isize).pow(2))as f32;
@@ -26,5 +27,7 @@ impl Funnel for Line {
             else {
                 None
             }
+            */
+            todo!();
     }
 }

@@ -5,7 +5,7 @@
 pub struct World {
     width:usize,
     height:usize,
-    pub world:Vec<Box<Funnel>>,
+    pub world:Vec<Box<Shape2d>>,
     background:Box<[u8]>,
 }
 ````
@@ -14,9 +14,9 @@ pub struct World {
 ````rust
 fn new(width:&u32, height:&u32, background:Box<[u8]>)->World
 
-fn add(&mut self, object:Box<Funnel>)
+fn add(&mut self, object:Box<Shape2d>)
 
-fn change(&mut self, index: usize, object:Box<Funnel>)->Box<Funnel>
+fn change(&mut self, index: usize, object:Box<Shape2d>)->Box<Shape2d>
 
 fn update(&mut self, frame:&mut [u8])
 

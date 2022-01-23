@@ -11,3 +11,5 @@ models = {path="models"}
 winit = "0.25.0"
 pixels = "0.6.0"
 ndarray = "0.15.3"
+rand = "0.8"
+minifb = "0.20.0"

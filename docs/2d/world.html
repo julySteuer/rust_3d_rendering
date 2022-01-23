@@ -143,7 +143,7 @@
 </span>pub struct World {
     width:usize,
     height:usize,
-    pub world:Vec&lt;Box&lt;Funnel&gt;&gt;,
+    pub world:Vec&lt;Box&lt;Shape2d&gt;&gt;,
     background:Box&lt;[u8]&gt;,
 }
 <span class="boring">}
@@ -155,9 +155,9 @@
 </span><span class="boring">fn main() {
 </span>fn new(width:&amp;u32, height:&amp;u32, background:Box&lt;[u8]&gt;)-&gt;World
 
-fn add(&amp;mut self, object:Box&lt;Funnel&gt;)
+fn add(&amp;mut self, object:Box&lt;Shape2d&gt;)
 
-fn change(&amp;mut self, index: usize, object:Box&lt;Funnel&gt;)-&gt;Box&lt;Funnel&gt;
+fn change(&amp;mut self, index: usize, object:Box&lt;Shape2d&gt;)-&gt;Box&lt;Shape2d&gt;
 
 fn update(&amp;mut self, frame:&amp;mut [u8])
 

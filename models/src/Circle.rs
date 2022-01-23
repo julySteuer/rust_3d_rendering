@@ -1,4 +1,4 @@
-use crate::World::Funnel;
+use crate::World::Shape2d;
 use crate::Vector::Vec2d;
 
 pub struct Circle {
@@ -13,8 +13,9 @@ impl Circle {
     }
 }
 
-impl Funnel for Circle {
-    fn draw(&self, x: usize, y: usize)->Option<Box<[u8]>> {
+impl Shape2d for Circle {
+    fn draw(&mut self, frame: &mut Vec<u32>) {
+        /*
         let is_circle = {
             let proc = ((self.point.x as i32-x as i32).pow(2) + (self.point.y as i32-y as i32).pow(2)) as f32;
             let dist = proc.sqrt();
@@ -26,5 +27,7 @@ impl Funnel for Circle {
         else {
             None
         }
+        */
+        todo!();
     }
 }

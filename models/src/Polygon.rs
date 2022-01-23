@@ -1,4 +1,4 @@
-use crate::World::Funnel;
+use crate::World::Shape2d;
 use crate::Vector::Vec2d;
 
 #[derive(Clone)]
@@ -70,8 +70,9 @@ impl Polygon {
     }
 }
 
-impl Funnel for Polygon {
-    fn draw(&self,x: usize, y: usize)->Option<Box<[u8]>>{ 
+impl Shape2d for Polygon {
+    fn draw(&mut self, frame: &mut Vec<u32>){ 
+        /*
         if x < self.max_x as usize && x > self.min_x as usize && y > self.min_y as usize && y < self.max_y as usize{
             let mut intersections:i8 = 0;
             let proc_x = x as isize;
@@ -93,5 +94,8 @@ impl Funnel for Polygon {
         else {
             None
         }
+    }
+    */
+    todo!();
     }
 }

@@ -13,4 +13,5 @@ pub mod Polygon;
 pub mod Vector;
 pub mod Line;
 pub mod Mats;
+pub mod Color;
 pub mod dim3;
