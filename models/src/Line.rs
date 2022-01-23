@@ -1,14 +1,20 @@
 use crate::World::Shape2d;
 use crate::Vector::Vec2d;
+use crate::Color;
 
 pub struct Line {
-    points: Vec<Vec2d>,
-    color:Box<[u8]>,
+    p1: Vec2d,
+    p2: Vec2d,
+    color:Box<[u32]>,
+    width: usize
 }
 
 impl Line {
-    pub fn new(points: Vec<Vec2d>, color:Box<[u8]>) -> Line {
-        Line {points, color}
+    pub fn new(points: Vec<Vec2d>, color:Box<[u32]>, width: usize) -> Line {
+        if points.len() > 2 {
+            panic!("Line only has two points");
+        }
+        Line {p1: points[0], p2: points[1], color, width}
     }
 }
 
@@ -28,6 +34,18 @@ impl Shape2d for Line {
                 None
             }
             */
-            todo!();
+            let d = self.p2 - self.p1; // Add fast selecotor for testing purpose x as fast
+            let mut err = d.x/2.0;
+            let mut y: usize = 0; 
+            for x in 0..(d.x as usize) {
+                err = err-d.y;
+                if err < 0.0 {
+                    y+=1;
+                    err += d.y;
+                }
+                let ges = self.width * y + x;
+                frame[ges] = Color::rgb_2_int(&Color::u32_arr_to_rgb(self.color.clone()));
+            }
+            //todo!();
     }
 }

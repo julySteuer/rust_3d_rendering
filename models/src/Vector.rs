@@ -1,3 +1,5 @@
+use std::ops;
+
 #[derive(Debug, Copy, Clone)]
 pub struct Vec2d {
     pub x: f64,
@@ -39,5 +41,33 @@ impl Vec2d {
             x:arr[0],
             y:arr[1],
         }
+    }
+}
+
+impl ops::Sub<Vec2d> for Vec2d {
+    type Output = Vec2d;
+    fn sub(self, other: Vec2d) -> Vec2d{
+        Vec2d{x: self.x - other.x, y: self.y - other.y}
+    }
+}
+
+impl ops::Add<Vec2d> for Vec2d {
+    type Output = Vec2d;
+    fn add(self, other: Vec2d) -> Vec2d{
+        Vec2d{x: self.x + other.x, y: self.y + other.y}
+    }
+}
+
+impl ops::Sub<Vec3d> for Vec3d {
+    type Output = Vec3d;
+    fn sub(self, other: Vec3d) -> Vec3d{
+        Vec3d{x: self.x - other.x, y: self.y - other.y, z: self.z - other.z}
+    }
+}
+
+impl ops::Add<Vec3d> for Vec3d {
+    type Output = Vec3d;
+    fn add(self, other: Vec3d) -> Vec3d{
+        Vec3d{x: self.x + other.x, y: self.y + other.y, z: self.z + other.z}
     }
 }

@@ -11,7 +11,6 @@ pub struct Obstacle {
 
 impl Obstacle {
     pub fn new(pos: Vec2d, color: Box<[u32]>, width: usize, height: usize) -> Obstacle{
-        println!("{}", pos.y);
         Obstacle {
             pos, 
             color,
@@ -56,7 +55,7 @@ impl ObstacleHolder {
     pub fn new(width: usize, height: usize, color: Box<[u32]>, capacity: usize) -> ObstacleHolder {
         let mut obj: Vec<Obstacle> = Vec::with_capacity(capacity);
         let seed = height-100;
-        for i in 0..4 {
+        for i in 0..3 { // 3 looks like the sweet spot
             let mut num: i32 = rand::thread_rng().gen_range(0..seed)as i32;
             if num < (height/2) as i32 {
                 num = -num;

@@ -79,15 +79,16 @@ pub fn run() { // Front buffer and back buffer
 
     // Limit to max ~60 fps update rate
     let mut obs_holder = Obstacle::ObstacleHolder::new(WIDTH as usize, HEIGHT as usize, Box::new(rgba), 5);
+    world.add(Box::new(Line::new(vec![Vec2d{x: 0.0, y: 0.0}, Vec2d{x: 100.0, y: 100.0}], Box::new(rgba.clone()), WIDTH)));
     while window.is_open() && !window.is_key_down(Key::Escape) {
         let now = Instant::now();
         //world.clear(&mut buffer);
         //obs_holder.render(&mut world);
         //obs_holder.update(2);
-        //world.update(&mut buffer);
+        world.update(&mut buffer);
         window
             .update_with_buffer(&buffer, WIDTH, HEIGHT)
             .unwrap();
-        println!("{}", now.elapsed().as_millis());
+        //println!("{}", now.elapsed().as_millis());
     }
 }
