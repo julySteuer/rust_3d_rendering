@@ -58,3 +58,6 @@ cargo run --release
 
 ### 3. Understand it
 The documentation is at https://julysteuer.github.io/rust_3d_rendering/
+
+## Development Update
+A new version is being developed on the minifb branch. This version will be much faster (about 110 percent increase in the framerate) and easier to work with due to the use of minifb
